@@ -22,10 +22,12 @@
   },
   "dependencies": {
     "async": "latest",
+    "events": "^1.1.1",
+    "inherits": "^2.0.3",
     "is": "latest",
     "localforage": "latest",
-    "mkdirp": "latest",
-    "underscore": "latest"
+    "lodash": "^4.17.4",
+    "mkdirp": "latest"
   },
   "devDependencies": {
     "chai": "latest",
@@ -40,8 +42,7 @@
   },
   "main": "index",
   "browser": {
-    "./lib/customUtils.js": "./browser-version/browser-specific/lib/customUtils.js",
-    "./lib/storage.js": "./browser-version/browser-specific/lib/storage.js"
+    "./lib/storage.js": "./browser/storage.js"
   },
   "license": "SEE LICENSE IN LICENSE"
 }

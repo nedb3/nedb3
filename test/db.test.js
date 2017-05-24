@@ -3,7 +3,7 @@ var should = require('chai').should()
   , testDb = 'workspace/test.db'
   , fs = require('fs')
   , path = require('path')
-  , _ = require('underscore')
+  , _ = require('lodash')
   , async = require('async')
   , model = require('../lib/model')
   , Datastore = require('../lib/datastore')
@@ -136,9 +136,9 @@ describe('Database', function () {
             d.insert({ somedata: 'again' }, function (err) {
               d.find({}, function (err, docs) {
                 docs.length.should.equal(3);
-                _.pluck(docs, 'somedata').should.contain('ok');
-                _.pluck(docs, 'somedata').should.contain('another');
-                _.pluck(docs, 'somedata').should.contain('again');
+                _.map(docs, 'somedata').should.contain('ok');
+                _.map(docs, 'somedata').should.contain('another');
+                _.map(docs, 'somedata').should.contain('again');
                 done();
               });
             });
@@ -646,10 +646,10 @@ describe('Database', function () {
         d.find({}, function (err, docs) {
           assert.isNull(err);
           docs.length.should.equal(3);
-          _.pluck(docs, 'somedata').should.contain('ok');
-          _.pluck(docs, 'somedata').should.contain('another');
+          _.map(docs, 'somedata').should.contain('ok');
+          _.map(docs, 'somedata').should.contain('another');
           _.find(docs, function (d) { return d.somedata === 'another' }).plus.should.equal('additional data');
-          _.pluck(docs, 'somedata').should.contain('again');
+          _.map(docs, 'somedata').should.contain('again');
           return cb();
         });
       }
@@ -669,7 +669,7 @@ describe('Database', function () {
         d.find({ somedata: 'again' }, function (err, docs) {
           assert.isNull(err);
           docs.length.should.equal(2);
-          _.pluck(docs, 'somedata').should.not.contain('ok');
+          _.map(docs, 'somedata').should.not.contain('ok');
           return cb();
         });
       }
@@ -769,14 +769,14 @@ describe('Database', function () {
             d.find({ fruits: 'pear' }, function (err, docs) {
               assert.isNull(err);
               docs.length.should.equal(2);
-              _.pluck(docs, '_id').should.contain(doc1._id);
-              _.pluck(docs, '_id').should.contain(doc2._id);
+              _.map(docs, '_id').should.contain(doc1._id);
+              _.map(docs, '_id').should.contain(doc2._id);
 
               d.find({ fruits: 'banana' }, function (err, docs) {
                 assert.isNull(err);
                 docs.length.should.equal(2);
-                _.pluck(docs, '_id').should.contain(doc1._id);
-                _.pluck(docs, '_id').should.contain(doc3._id);
+                _.map(docs, '_id').should.contain(doc1._id);
+                _.map(docs, '_id').should.contain(doc3._id);
 
                 d.find({ fruits: 'doesntexist' }, function (err, docs) {
                   assert.isNull(err);
@@ -2444,8 +2444,8 @@ describe('Database', function () {
 
                 d.indexes.b.tree.getNumberOfKeys().should.equal(1);
                 d.indexes.b.getMatching('same').length.should.equal(2);
-                _.pluck(d.indexes.b.getMatching('same'), '_id').should.contain(doc1._id);
-                _.pluck(d.indexes.b.getMatching('same'), '_id').should.contain(doc2._id);
+                _.map(d.indexes.b.getMatching('same'), '_id').should.contain(doc1._id);
+                _.map(d.indexes.b.getMatching('same'), '_id').should.contain(doc2._id);
 
                 // The same pointers are shared between all indexes
                 d.indexes.a.tree.getNumberOfKeys().should.equal(2);

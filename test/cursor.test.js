@@ -3,7 +3,7 @@ var should = require('chai').should()
   , testDb = 'workspace/test.db'
   , fs = require('fs')
   , path = require('path')
-  , _ = require('underscore')
+  , _ = require('lodash')
   , async = require('async')
   , model = require('../lib/model')
   , Datastore = require('../lib/datastore')
@@ -201,15 +201,15 @@ describe('Cursor', function () {
       db.insert({ name: 'zulu' });
 
       db.find({}).sort({ name: 1 }).exec(function (err, docs) {
-        _.pluck(docs, 'name')[0].should.equal('zulu');
-        _.pluck(docs, 'name')[1].should.equal('alpha');
-        _.pluck(docs, 'name')[2].should.equal('charlie');
+        _.map(docs, 'name')[0].should.equal('zulu');
+        _.map(docs, 'name')[1].should.equal('alpha');
+        _.map(docs, 'name')[2].should.equal('charlie');
 
         delete db.compareStrings;
         db.find({}).sort({ name: 1 }).exec(function (err, docs) {
-          _.pluck(docs, 'name')[0].should.equal('alpha');
-          _.pluck(docs, 'name')[1].should.equal('charlie');
-          _.pluck(docs, 'name')[2].should.equal('zulu');
+          _.map(docs, 'name')[0].should.equal('alpha');
+          _.map(docs, 'name')[1].should.equal('charlie');
+          _.map(docs, 'name')[2].should.equal('zulu');
 
           done();
         });

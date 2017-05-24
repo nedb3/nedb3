@@ -3,13 +3,13 @@ var should = require('chai').should()
   , testDb = 'workspace/test.db'
   , fs = require('fs')
   , path = require('path')
-  , _ = require('underscore')
+  , _ = require('lodash')
   , async = require('async')
   , model = require('../lib/model')
   , customUtils = require('../lib/custom-utils')
   , Datastore = require('../lib/datastore')
   , Persistence = require('../lib/persistence')
-  , storage = require('../lib/storage')
+  , storage = require('../nodejs/storage')
   , child_process = require('child_process')
 ;
 
